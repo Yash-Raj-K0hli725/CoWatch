@@ -17,3 +17,11 @@ fun getFileName(context: Context, uri: Uri): String {
     }
     return "unknow_${System.currentTimeMillis()}"
 }
+
+fun getFileSize(context: Context, uri: Uri): Long {
+    return context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+        val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+        cursor.moveToFirst()
+        cursor.getLong(sizeIndex)
+    } ?: -1L
+}

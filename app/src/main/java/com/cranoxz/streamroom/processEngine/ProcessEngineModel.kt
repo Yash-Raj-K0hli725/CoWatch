@@ -1,5 +1,6 @@
 package com.cranoxz.streamroom.processEngine
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,16 +27,27 @@ class ProcessEngineModel @Inject constructor(val repo: PartyRepositoryImpl) : Vi
         MutableSharedFlow<UI>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val state get() = _state.asSharedFlow()
 
-    fun createParty(partyname: String) {
+    fun createParty(partyname: String, filesize: Long, uri: Uri) {
         viewModelScope.launch {
             val x = when (val response = repo.createRoom(partyname)) {
                 is Loading -> Loadin
                 is XError -> Message(response.message, response.thrown)
-                is Succezz -> Response(response.data)
+                is Succezz -> {
+                    startUpload(response.data.upload_url, filesize, uri)
+                    Response(response.data)
+                }
+
                 else -> IDLE
             }
             Log.d("yash", "$x")
             _state.tryEmit(x)
         }
     }
+
+    private fun startUpload(url: String, filesize: Long, uri: Uri) {
+        viewModelScope.launch {
+            repo.upload(url = url, filesize = filesize, uri = uri)
+        }
+    }
+
 }

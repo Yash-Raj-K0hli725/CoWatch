@@ -1,30 +1,18 @@
 package com.cranoxz.streamroom.lobby.viewmodel
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.cranoxz.streamroom.core.domain.Empty
 import com.cranoxz.streamroom.core.domain.IDLE
-import com.cranoxz.streamroom.core.domain.Loadin
 import com.cranoxz.streamroom.core.domain.Message
-import com.cranoxz.streamroom.core.domain.Response
 import com.cranoxz.streamroom.core.domain.UI
-import com.cranoxz.streamroom.data.remote.model.Loading
-import com.cranoxz.streamroom.data.remote.model.Succezz
-import com.cranoxz.streamroom.data.remote.model.XError
-import com.cranoxz.streamroom.data.remote.repository.PartyRepositoryImpl
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class Viewmodel @Inject constructor(private val repo: PartyRepositoryImpl) : ViewModel() {
+
+class Viewmodel : ViewModel() {
     private val _partyName = MutableStateFlow("")
     val partyName get() = _partyName.asStateFlow()
 
@@ -43,7 +31,7 @@ class Viewmodel @Inject constructor(private val repo: PartyRepositoryImpl) : Vie
         this._uri.value = uri
     }
 
-   fun onPartyCreate(toNext:()->Unit) {
+    fun onPartyCreate(toNext: () -> Unit) {
         val err = when {
             _partyName.value.isEmpty() -> Message<Nothing>("party name cannot be empty")
             _uri.value == null -> Message<Nothing>("please select a file to upload")
