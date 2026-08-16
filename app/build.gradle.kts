@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     kotlin("plugin.serialization") version "2.0.21"
+    alias(libs.plugins.compiler.ksp)
+    alias(libs.plugins.hilt)
 }
 
 
@@ -32,6 +34,7 @@ android {
 
     @Suppress("LocalVariableName")
     val LOCAL = properties.getProperty("LOCAL") ?: ""
+
     @Suppress("LocalVariableName")
     val PROD = properties.getProperty("PROD") ?: ""
 
@@ -84,9 +87,13 @@ dependencies {
     implementation("io.ktor:ktor-serialization-gson:$ktor")
     implementation("io.ktor:ktor-client-logging:$ktor")
     //viewmodel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
-    //navigations
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    //hilt
+    implementation(libs.dagger.hilt.android)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.navigation)
+    //navigation
     implementation(libs.androidx.compose.navigation)
     //
     testImplementation(libs.junit)

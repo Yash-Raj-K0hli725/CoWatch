@@ -2,6 +2,15 @@ package com.cranoxz.streamroom.util
 
 import androidx.compose.ui.graphics.Color
 
+/**30%*/
+val Color.Companion.Primary get() = Color(0xFFFF6B4A)
+
+/**60%*/
+val Color.Companion.Secondary get() = Color(0xFF14121C)
+
+/**10%*/
+val Color.Companion.Tertiary get() = Color(0xFF8969FF)
+
 val Color.Companion.WhiteSmoke get() = Color(0xFFF5F5F5)
 val Color.Companion.Ivory get() = Color(0xFFFFFFF0)
 val Color.Companion.DodgerBlue get() = Color(0xFF1454F2)
