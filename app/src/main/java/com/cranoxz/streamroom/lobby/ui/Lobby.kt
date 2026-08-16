@@ -145,7 +145,7 @@ private fun PartyConfig(
                 disabledIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            textStyle = TextStyle(color = Color.Black, fontSize = 14.sp),
+            textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
             placeholder = {
                 Text(
                     stringResource(R.string.new_party_name),
@@ -182,7 +182,7 @@ private fun Uploader(uri: Uri?, onClick: () -> Unit) {
                     .padding(16.dp)
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.plus),
+                    painter = painterResource(if (uri == null) R.drawable.plus else R.drawable.play_fill),
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier
@@ -194,13 +194,15 @@ private fun Uploader(uri: Uri?, onClick: () -> Unit) {
                 Text(
                     stringResource(R.string.choose_a_video),
                     color = Color.White,
-                    fontWeight = FontWeight.W600
+                    fontWeight = FontWeight.W600,
+                    fontSize = 16.sp,
+                    lineHeight = 16.sp
                 )
-                Spacer(Modifier.height(8.dp))
                 Text(
                     "MP4 . up to 500 MB",
                     color = Color.White.copy(0.4f),
-                    fontWeight = FontWeight.W600
+                    fontWeight = FontWeight.W300,
+                    fontSize = 10.sp
                 )
             } else {
                 val context = LocalContext.current
