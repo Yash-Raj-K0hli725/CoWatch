@@ -48,7 +48,7 @@ import com.cranoxz.streamroom.util.getFileName
 @Preview
 @Composable
 fun LobbyContent(
-    state: UI = IDLE,
+    state: UI<Nothing> = IDLE,
     partyName: String = "",
     onNameChange: (String) -> Unit = {},
     onCreate: () -> Unit = {},

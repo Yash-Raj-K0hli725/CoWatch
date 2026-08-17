@@ -68,15 +68,20 @@ fun AppNavigations() {
             val args = stack.toRoute<ProcessEngine>()
             val context = LocalContext.current
             val progress by progress.collectAsStateWithLifecycle()
+            val state by viewmodel.state.collectAsStateWithLifecycle(IDLE)
+            val uri = Uri.decode(args.uri).toUri()
             LaunchedEffect(Unit) {
-                val uri = Uri.decode(args.uri).toUri()
                 viewmodel.createParty(
                     args.partyname,
                     filesize = getFileSize(context, uri),
                     uri = uri
                 )
             }
-            ProcessContent(args.partyname, progress = progress)
+            ProcessContent(
+                state,
+                videoUri = uri,
+                progress = progress
+            )
         }
     }
 }

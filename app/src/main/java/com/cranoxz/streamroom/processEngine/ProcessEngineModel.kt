@@ -12,10 +12,12 @@ import com.cranoxz.streamroom.core.domain.UI
 import com.cranoxz.streamroom.data.remote.model.Loading
 import com.cranoxz.streamroom.data.remote.model.Succezz
 import com.cranoxz.streamroom.data.remote.model.XError
+import com.cranoxz.streamroom.data.remote.model.response.CreateRoom
 import com.cranoxz.streamroom.data.remote.repository.PartyRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,20 +25,18 @@ import javax.inject.Inject
 @HiltViewModel
 class ProcessEngineModel @Inject constructor(val repo: PartyRepositoryImpl) : ViewModel() {
 
-    private val _state =
-        MutableSharedFlow<UI>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val _state = MutableStateFlow<UI<out CreateRoom>>(IDLE)
     val state get() = _state.asSharedFlow()
 
     fun createParty(partyname: String, filesize: Long, uri: Uri) {
         viewModelScope.launch {
+            _state.emit(Loadin)
             val x = when (val response = repo.createRoom(partyname)) {
-                is Loading -> Loadin
                 is XError -> Message(response.message, response.thrown)
                 is Succezz -> {
                     startUpload(response.data.upload_url, filesize, uri)
                     Response(response.data)
                 }
-
                 else -> IDLE
             }
             Log.d("yash", "$x")

@@ -21,7 +21,7 @@ class Viewmodel : ViewModel() {
     }
 
     private val _state =
-        MutableSharedFlow<UI>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+        MutableSharedFlow<UI<Nothing>>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val state get() = _state.asSharedFlow()
 
     private val _uri = MutableStateFlow<Uri?>(null)
