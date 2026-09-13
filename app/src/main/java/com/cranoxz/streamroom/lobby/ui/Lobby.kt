@@ -30,6 +30,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -77,7 +79,7 @@ fun LobbyContent(
             Spacer(Modifier.width(8.dp))
             Text(
                 stringResource(R.string.app_name),
-                fontWeight = FontWeight.W800,
+                fontFamily = FontFamily(Font(R.font.inter_extra_bold)),
                 fontSize = 24.sp,
                 color = Color.White,
                 modifier = Modifier.weight(1f)
@@ -114,7 +116,7 @@ fun LobbyContent(
             Text(
                 stringResource(R.string.create_a_party),
                 fontSize = 18.sp,
-                fontWeight = FontWeight.W800
+                fontFamily = FontFamily(Font(R.font.inter_extra_bold))
             )
         }
     }
