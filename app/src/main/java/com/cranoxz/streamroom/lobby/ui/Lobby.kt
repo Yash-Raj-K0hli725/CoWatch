@@ -50,7 +50,6 @@ import com.cranoxz.streamroom.util.getFileName
 @Preview
 @Composable
 fun LobbyContent(
-    state: UI<Nothing> = IDLE,
     partyName: String = "",
     onNameChange: (String) -> Unit = {},
     onCreate: () -> Unit = {},
@@ -108,7 +107,6 @@ fun LobbyContent(
         Spacer(Modifier.height(8.dp))
         Botton(
             modifier = Modifier.fillMaxWidth(),
-            isLoading = state is Loadin,
             onClick = onCreate,
             background = Color.Primary,
             strokeColor = Color.Transparent
