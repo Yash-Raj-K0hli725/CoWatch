@@ -72,7 +72,7 @@ fun Toaster(modifier: Modifier = Modifier, toastage: Toastage) {
         is Warning -> Triple(R.drawable.alert_circle, Color.Orange, "warning")
         is Succezz -> Triple(R.drawable.check_circle, Color.ForestGreen, "success")
         is Alert -> Triple(R.drawable.x_circle, Color.Crimson, "error")
-        else -> return
+        else -> Triple(0,Color.Transparent,"none")
     }
 
     AnimatedVisibility(
