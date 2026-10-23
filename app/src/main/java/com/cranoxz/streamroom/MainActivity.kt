@@ -5,9 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.material3.MaterialTheme
 import com.cranoxz.streamroom.core.navigations.AppNavigations
 import com.cranoxz.streamroom.room.viewmodel.RoomViewmodel
+import com.cranoxz.streamroom.ui.theme.CoWatchTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
+            CoWatchTheme {
                 AppNavigations()
             }
         }

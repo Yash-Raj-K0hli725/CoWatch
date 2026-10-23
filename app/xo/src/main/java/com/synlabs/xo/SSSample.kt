@@ -6,9 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
@@ -27,7 +30,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.synlabs.xo.player.XO
-import com.synlabs.xo.ui.theme.StreamRoomTheme
+import com.synlabs.xo.ui.theme.CoWatchTheme
 import kotlinx.coroutines.delay
 
 class SSSample : ComponentActivity() {
@@ -35,7 +38,7 @@ class SSSample : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            StreamRoomTheme {
+            CoWatchTheme {
                 val context = LocalContext.current
                 val owner = LocalLifecycleOwner.current
                 var at by retain { mutableLongStateOf(0L) }
@@ -70,36 +73,40 @@ class SSSample : ComponentActivity() {
                     }
                 }
 
-                XO(
+                Surface(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(16f / 9f)
-                        .statusBarsPadding()
-                        .background(color = Color.Black)
-                        .padding(horizontal = 16.dp),
-                    player = player,
-                    at = at,
-                    duration = duration,
-                    isPlaying = isPlaying,
-                    isBuffering = isBuffering,
-                    isPlayerUIVisible = isPlayerUIVisible,
-                    onSeekBarPositionChange = { new -> isSeeking = true; at = new },
-                    onSeekBarPositionChangeFinished = { player.seekTo(it) },
-                    onPlayPause = {
-                        when {
-                            !isPlaying && player.playbackState == Player.STATE_ENDED -> {
-                                player.seekTo(0L)
-                                player.play()
+                        .fillMaxSize()
+                        .background(color = MaterialTheme.colorScheme.background)
+                ) {
+                    XO(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(16f / 9f)
+                            .statusBarsPadding()
+                            .background(color = Color.Black)
+                            .padding(horizontal = 16.dp),
+                        player = player,
+                        at = at,
+                        duration = duration,
+                        isPlaying = isPlaying,
+                        isBuffering = isBuffering,
+                        isPlayerUIVisible = isPlayerUIVisible,
+                        onSeekBarPositionChange = { new -> isSeeking = true; at = new },
+                        onSeekBarPositionChangeFinished = { player.seekTo(it) },
+                        onPlayPause = {
+                            when {
+                                !isPlaying && player.playbackState == Player.STATE_ENDED -> {
+                                    player.seekTo(0L)
+                                    player.play()
+                                }
+
+                                !isPlaying -> player.play()
+
+                                isPlaying -> player.pause()
                             }
-
-                            !isPlaying -> player.play()
-
-                            isPlaying -> player.pause()
-                        }
-                    },
-                    onShowUI = { isPlayerUIVisible = !isPlayerUIVisible })
-
-
+                        },
+                        onShowUI = { isPlayerUIVisible = !isPlayerUIVisible })
+                }
                 RetainedEffect(player) {
                     val listener = object : Player.Listener {
                         override fun onIsPlayingChanged(bool: Boolean) {
