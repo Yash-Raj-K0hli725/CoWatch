@@ -62,7 +62,6 @@ android {
     }
 }
 val ktor: String by project
-val media3: String by project
 val logback: String by project
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
@@ -74,9 +73,10 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     // Jetpack Media3 (ExoPlayer + HLS Support)
-    implementation("androidx.media3:media3-exoplayer:$media3")
-    implementation("androidx.media3:media3-exoplayer-hls:$media3")
-    implementation("androidx.media3:media3-ui:$media3")
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.dash)
+    implementation(libs.media3.ui)
+    implementation(libs.media3.ui.material3.compose)
 
     // Ktor Client for WebSockets & HTTP Uploads
     implementation("io.ktor:ktor-client-core:${ktor}")
