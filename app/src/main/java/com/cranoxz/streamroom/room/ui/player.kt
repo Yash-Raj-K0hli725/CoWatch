@@ -6,13 +6,13 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.ui.PlayerView
-import com.cranoxz.streamroom.room.viewmodel.RoomViewmodel
+import com.cranoxz.streamroom.room.viewmodel.MainModel
 
 
 @Composable
 fun WatchParty(
     roomId: String,
-    viewModel: RoomViewmodel
+    viewModel: MainModel
 ) {
     DisposableEffect(roomId) {
         viewModel.findRoom(roomId)

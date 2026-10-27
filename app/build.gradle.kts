@@ -64,6 +64,7 @@ android {
 val ktor: String by project
 val logback: String by project
 dependencies {
+    implementation(project(":app:xo"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)

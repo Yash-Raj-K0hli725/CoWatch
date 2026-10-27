@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -10,12 +10,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.synlabs.xo"
         minSdk = 24
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

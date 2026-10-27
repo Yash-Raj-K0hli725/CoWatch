@@ -55,7 +55,7 @@ fun LobbyContent(
     onCreate: () -> Unit = {},
     toJoin: () -> Unit = {},
     fileUri: Uri? = null,
-    onFileSelect: () -> Unit = {}
+    onFileSelect: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier

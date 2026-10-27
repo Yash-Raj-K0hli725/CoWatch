@@ -107,6 +107,8 @@ class SSSample : ComponentActivity() {
                         },
                         onShowUI = { isPlayerUIVisible = !isPlayerUIVisible })
                 }
+
+
                 RetainedEffect(player) {
                     val listener = object : Player.Listener {
                         override fun onIsPlayingChanged(bool: Boolean) {
