@@ -24,7 +24,7 @@ import com.synlabs.xo.R
 import java.util.Locale
 
 @Composable
-fun PlayerUI(
+fun PlayControls(
     modifier: Modifier = Modifier,
     at: Long,
     duration: Long,

@@ -4,14 +4,16 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.retain.RetainedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -33,13 +35,14 @@ import com.cranoxz.streamroom.processEngine.ProcessEngineModel
 import com.cranoxz.streamroom.room.viewmodel.MainModel
 import com.cranoxz.streamroom.toaster.Toaster
 import com.cranoxz.streamroom.toaster.model._toast_
+import com.cranoxz.streamroom.util.extensions.collectLatestStateWithLifecycle
 import com.cranoxz.streamroom.util.getFileSize
 import com.synlabs.xo.watch.CoWatch
 
 @Composable
 fun AppNavigations() {
     val model = hiltViewModel<MainModel>()
-    val at by model.at.collectAsStateWithLifecycle()
+    val at by model.at.collectLatestStateWithLifecycle(0L)
     val duration by model.duration.collectAsStateWithLifecycle()
     val isBuffering by model.isBuffering.collectAsStateWithLifecycle()
     val isPlaying by model.isPlaying.collectAsStateWithLifecycle()
@@ -48,8 +51,19 @@ fun AppNavigations() {
 
     val navController = rememberNavController()
     val bread by _toast_.collectAsStateWithLifecycle()
-    Box(modifier = Modifier.fillMaxSize()) {
-        NavHost(navController = navController, startDestination = "lobby") {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+    ) {
+        NavHost(
+            navController = navController,
+            startDestination = "lobby",
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None },
+            popEnterTransition = { EnterTransition.None },
+            popExitTransition = { ExitTransition.None }
+        ) {
             composable(route = "lobby") {
                 val viewmodel: Viewmodel = hiltViewModel()
                 val name by viewmodel.partyName.collectAsStateWithLifecycle()
@@ -130,4 +144,5 @@ fun AppNavigations() {
             bread
         )
     }
+
 }

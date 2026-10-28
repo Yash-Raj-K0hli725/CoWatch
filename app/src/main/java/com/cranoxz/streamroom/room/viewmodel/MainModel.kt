@@ -47,6 +47,16 @@ class MainModel @Inject constructor(application: Application) : AndroidViewModel
             isPlaying.value = bool
             if (bool) startTicker() else stopTicker()
         }
+
+        override fun onPositionDiscontinuity(
+            oldPosition: Player.PositionInfo,
+            newPosition: Player.PositionInfo,
+            reason: Int
+        ) {
+            if(reason == Player.DISCONTINUITY_REASON_SEEK){
+                isSeeking = false
+            }
+        }
     }
 
     fun showControls() {
@@ -66,13 +76,13 @@ class MainModel @Inject constructor(application: Application) : AndroidViewModel
     }
 
     fun seekTo(new: Long) {
+        _at.value = new
         player.seekTo(new)
-        isSeeking = false
     }
 
     fun whileSeek(new: Long) {
-        isSeeking = true
         _at.value = new
+        isSeeking = true
     }
 
     val player = ExoPlayer.Builder(application.applicationContext).build().apply {

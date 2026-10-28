@@ -59,10 +59,10 @@ fun CoWatch(
             onShowUI = onShowUI
         )
     }
-    DisposableEffect(Unit) {
+    DisposableEffect(scope) {
         val listener = (LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_PAUSE if (isPlaying) -> player.pause()
+                Lifecycle.Event.ON_PAUSE, Lifecycle.Event.ON_STOP -> player.pause()
                 Lifecycle.Event.ON_RESUME if (player.playbackState == Player.STATE_READY && !isPlaying) -> player.play()
                 else -> Unit
             }

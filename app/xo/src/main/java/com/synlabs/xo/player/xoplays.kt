@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
@@ -44,7 +45,7 @@ fun XO(
             enter = fadeIn(),
             exit = fadeOut()
         ) {
-            PlayerUI(
+            PlayControls(
                 modifier = Modifier,
                 at = at,
                 duration = duration,
@@ -56,5 +57,4 @@ fun XO(
             )
         }
     }
-
 }
