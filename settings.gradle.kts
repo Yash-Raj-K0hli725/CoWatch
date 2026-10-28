@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "StreamRoom"
 include(":app")
-include(":app:xo")
+include(":xo")
+include(":loxer")

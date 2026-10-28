@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.cranoxz.loxer.wrapper.timber
 import com.cranoxz.streamroom.core.navigations.AppNavigations
 import com.cranoxz.streamroom.ui.theme.CoWatchTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,7 @@ class MainActivity : ComponentActivity() {
                 AppNavigations()
             }
         }
+        timber.i("some log this is")
     }
 }
 

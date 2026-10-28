@@ -7,6 +7,8 @@ plugins {
     kotlin("plugin.serialization") version "2.0.21"
     alias(libs.plugins.compiler.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 
@@ -64,7 +66,8 @@ android {
 val ktor: String by project
 val logback: String by project
 dependencies {
-    implementation(project(":app:xo"))
+    implementation(project(":xo"))
+    implementation(project(":loxer"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
@@ -97,7 +100,11 @@ dependencies {
     //navigation
     implementation(libs.androidx.compose.navigation)
     //
+    implementation(libs.timber)
+
     testImplementation(libs.junit)
+    androidTestImplementation(libs.test.hilt)
+    androidTestImplementation(libs.test.hilt.compiler)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)

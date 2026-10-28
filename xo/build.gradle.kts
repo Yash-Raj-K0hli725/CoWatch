@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.synlabs.xo"
+    namespace = "com.cranoxz.xo"
     compileSdk {
         version = release(37)
     }
